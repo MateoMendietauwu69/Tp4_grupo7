@@ -76,8 +76,7 @@ class guerrero : public personaje
         }
         void pov(int i)
         {
-            cout<<"       PLAYER "<<i<<endl;
-            cout<<"             *   /\\ * "<<endl;
+            cout<<"    ****PLAYER "<<i<<" TURN****"<<endl;
             cout<<"                /  \\  "<<endl;
             cout<<"              * |  |   "<<endl;
             cout<<"                |  | * "<<endl;
@@ -160,7 +159,7 @@ class alquimista : public personaje
         }
         void pov(int i)
         {
-            cout<<"     PLAYER "<<i<<endl;
+            cout<<"    ****PLAYER "<<i<<" TURN****"<<endl;
             cout<<"              ::::::::     "<<endl;
             cout<<"              ::::::::     "<<endl;
             cout<<"                ||||       "<<endl;
@@ -237,7 +236,7 @@ class mago : public personaje
         }
         void pov(int i)
         {
-            cout<<"      PLAYER "<<i<<endl;
+            cout<<"    ****PLAYER "<<i<<" TURN****"<<endl;
             cout<<"           _____                 "<<endl;
             cout<<"           \\\\   \\\\__             "<<endl;
             cout<<"             \\\\  _  \\\\           "<<endl;
@@ -330,7 +329,7 @@ class vampiro : public personaje
         }
         void pov(int i)
         {
-            cout<<"      PLAYER "<<i<<endl;
+            cout<<"    ****PLAYER "<<i<<" TURN****"<<endl;
             cout<<"        /\\                      /\\"<<endl;
             cout<<"      _/  \\      /\\    /\\      /  \\_ "<<endl;
             cout<<"     /     \\    //\\\\__//\\\\    /     \\ "<<endl;
