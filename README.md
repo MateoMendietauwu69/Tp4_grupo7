@@ -1,3 +1,4 @@
+GRUPO: DAVID PALACIOS, ERICK NEUMAN, LAUTARO MERCADO, MATEO MENDIETA
 
 |||EN ESTE REPOSITORIO HECHO POR Lautaro Mercado, Mateo Mendita, David Palacios y Erick Neuman SUBIMOS 3 ARCHIVOS DE JUEGOS COMBATE POR TURNOS|||
 )-En el archivo: Game iso.cpp. Es un juego de combate por turnos inicial basado en DRAGON BALL, aqui tenemos la clase SAIYAYIN,
