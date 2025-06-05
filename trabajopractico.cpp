@@ -4,143 +4,141 @@
 #include <vector>
 using namespace std;
 class pj{
-private:
-	string nom;
-	int hp=100;
-	int esc=0;
-	int dano=20;
-	int velocidad;
-public:
-	pj(string nwnom,int a){
-		nom=nwnom;
-		velocidad=a;
-	}
-	string getnom(){
-		return nom;
-	}
-		int gethp(){
-			return hp;
-		}
-			int getesc(){
-				return esc;
-			}
-				int getdano(){
-					return dano;
-				}
-					int getvelocidad(){
-						return velocidad;
-					}
-						void setvelocidad(int a){
-							velocidad=a;
-						}
-							void sethp(int a){
-								hp=a;
-							}
-								void setesc(int a){
-									esc=a;
-								}
-									void setdano(int a){
-										dano=a;
-									}
-										void golpear(pj* &a){
-											if(a->getesc()>0)
-											{
-												a->setesc(a->getesc()-1);
-												a->sethp(a->gethp()-dano/2);
-											}else
-											{
-												a->sethp(a->gethp()-dano);
-											}
-										}
-											void bloquear(){
-												esc=esc+1;
-											}
-												void curar(){
-													int ex=0;
-													hp=hp+15;
-													if(hp>100)
-													{
-														ex=hp-100;
-														hp=hp-ex;
-													}
-												}
-													virtual void lanzarroca(pj* &a,int b){}
-													virtual void lanzallamas(pj* &a, int b){}
-													virtual void sunami(pj* &a,int b){}
-													virtual void tornado(pj* &a,int b){}
-													virtual void curaragua(pj* &a){}
-													
+    private:
+	    string nom;
+	    int hp=100;
+	    int esc=0;
+	    int dano=20;
+	    int velocidad;
+    public:
+	    pj(string nwnom,int a){
+		    nom=nwnom;
+		    velocidad=a;
+	    }
+	    string getnom(){
+		    return nom;
+	    }
+	    int gethp(){
+		    return hp;
+	    }
+	    int getesc(){
+    	    return esc;
+	    }
+	    int getdano(){
+		    return dano;
+	    }
+	    int getvelocidad(){
+		    return velocidad;
+	    }
+	    void setvelocidad(int a){
+		    velocidad=a;
+	    }
+	    void sethp(int a){
+		    hp=a;
+	    }
+	    void setesc(int a){
+		    esc=a;
+	    }
+	    void setdano(int a){
+		    dano=a;
+	    }
+	    void golpear(pj* &a){
+	        if(a->getesc()>0)
+	        {
+			    a->setesc(a->getesc()-1);
+			    a->sethp(a->gethp()-dano/2);
+		    }else{
+			    a->sethp(a->gethp()-dano);
+		    }
+	    }
+	    void bloquear(){
+		    esc=esc+1;
+	    }
+	    void curar(){
+		    int ex=0;
+		    hp=hp+15;
+		    if(hp>100)
+		    {
+			    ex=hp-100;
+			    hp=hp-ex;
+		    }
+	    }
+	    virtual void lanzarroca(pj* &a,int b){}
+	    virtual void lanzallamas(pj* &a, int b){}
+	    virtual void sunami(pj* &a,int b){}
+        virtual void tornado(pj* &a,int b){}
+	    virtual void curaragua(pj* &a){}
 };
 class tierra: public pj{
-public:
-	tierra(string a,int b):pj(a,b){
-		setesc(getesc()+1);
-	}
-	void lanzarroca(pj* &a,int b){
-		if(a->getesc()>0)
-		{
-			a->setesc(a->getesc()-1);
-			a->sethp(a->gethp()-b/2);
-		}else
-		{
-			a->sethp(a->gethp()-b);
-		}
-	}
+    public:
+	    tierra(string a,int b):pj(a,b){
+		    setesc(getesc()+1);
+	    }
+	    void lanzarroca(pj* &a,int b){
+		    if(a->getesc()>0)
+		    {
+			    a->setesc(a->getesc()-1);
+			    a->sethp(a->gethp()-b/2);
+		    }else
+		    {
+			    a->sethp(a->gethp()-b);
+		    }
+	    }
 };
 class fuego: public pj{
-public:
-	fuego(string a,int b):pj(a,b){
-		setdano(getdano()+10);
-	}
-	void lanzallamas(pj* &a, int b){
-		if(a->getesc()>0)
-		{
-			a->setesc(a->getesc()-1);
-			a->sethp(a->gethp()-b/2);
-		}else
-		{
-			a->sethp(a->gethp()-b);
-		}
-	}
+    public:
+	    fuego(string a,int b):pj(a,b){
+		    setdano(getdano()+10);
+	    }
+	    void lanzallamas(pj* &a, int b){
+		    if(a->getesc()>0)
+		    {
+			    a->setesc(a->getesc()-1);
+			    a->sethp(a->gethp()-b/2);
+		    }else
+		    {
+			    a->sethp(a->gethp()-b);
+		    }
+	    }
 };
 class agua: public pj{
-public:
-	agua(string a,int b):pj(a,b){
-		sethp(gethp()+50);
-	}
-	void sunami(pj* &a,int b){
-		if(a->getesc()>0)
-		{
-			a->setesc(a->getesc()-1);
-			a->sethp(a->gethp()-b/2);
-		}else{
-			a->sethp(a->gethp()-b);
-		}
-	}
+    public:
+	    agua(string a,int b):pj(a,b){
+		    sethp(gethp()+50);
+	    }
+	    void sunami(pj* &a,int b){
+		    if(a->getesc()>0)
+		    {
+			    a->setesc(a->getesc()-1);
+			    a->sethp(a->gethp()-b/2);
+		    }else{
+			    a->sethp(a->gethp()-b);
+		    }
+	    }
 		void curaragua(pj* &a){
-			int ex=0;
-			a->sethp(a->gethp()+15);
-			if(a->gethp()>150){
-				ex=a->gethp()-150;
-				a->sethp(a->gethp()-ex);
-			}
-		}
+    	    int ex=0;
+		    a->sethp(a->gethp()+15);
+		    if(a->gethp()>150){
+			    ex=a->gethp()-150;
+			    a->sethp(a->gethp()-ex);
+		    }
+	    }
 };
 class viento: public pj{
-public:
-	viento(string a,int b):pj(a,b){
-		setvelocidad(getvelocidad()+10);
-	}
-	void tornado(pj* &a,int b){
-		if(a->getesc()>0)
-		{
-			a->setesc(a->getesc()-1);
-			a->sethp(a->gethp()-b/2);
-		}else
-		{
-			a->sethp(a->gethp()-b);
-		}
-	}
+    public:
+	    viento(string a,int b):pj(a,b){
+		    setvelocidad(getvelocidad()+10);
+	    }
+	    void tornado(pj* &a,int b){
+		    if(a->getesc()>0)
+		    {
+			    a->setesc(a->getesc()-1);
+			    a->sethp(a->gethp()-b/2);
+		    }else
+		    {
+			    a->sethp(a->gethp()-b);
+		    }
+	    }
 };
 
 void duelo(pj* &a,pj* &b, char c, char d, char e);
@@ -193,7 +191,7 @@ int main(){
 		duelo(per[1],per[0],p[1],p[0],op);
 	}
 	if(per[0]->gethp()<=0)
-													cout<<per[1]->getnom()<<" es el GANADOR"<<endl;
+		cout<<per[1]->getnom()<<" es el GANADOR"<<endl;
 	else   
 		cout<<per[0]->getnom()<<" es el GANADOR"<<endl;
 	
@@ -337,19 +335,19 @@ int main(){
 		} while (a->gethp()>0 && b->gethp()>0);
 	}
 		
-		void mostrarsalud(int a, char b){
-			int hpMax, barras=10;
-			if(b=='c' || b=='C')
-				hpMax=150; 
-			else
-				hpMax=100; 
-			int bloques = (a*barras)/hpMax;
-			cout << "[";
-			for (int i = 0; i < bloques; i++) {
-				cout << "#";
-			}
-			for (int i=bloques;i<barras;i++) {
-				cout<<"-";
-			}
-			cout<<"] "<<a<<"/"<<hpMax<<" HP"<<endl;
+	void mostrarsalud(int a, char b){
+		int hpMax, barras=10;
+		if(b=='c' || b=='C')
+			hpMax=150; 
+		else
+			hpMax=100; 
+		int bloques = (a*barras)/hpMax;
+		cout << "[";
+		for (int i = 0; i < bloques; i++) {
+			cout << "#";
 		}
+		for (int i=bloques;i<barras;i++) {
+			cout<<"-";
+		}
+		cout<<"] "<<a<<"/"<<hpMax<<" HP"<<endl;
+	}
