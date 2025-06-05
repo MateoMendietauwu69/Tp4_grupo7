@@ -75,7 +75,8 @@ public:
 		cout<<"      ||       HEALTH POINTS: "<<getvida()<<endl;
 		cout<<"      ||       DAMAGE: "<<attack<<endl;
 		cout<<"     (==)      SPECIAL ABILITIES"<<endl;
-		cout<<"      []       SHIELD: Proteje del siguiente ataque"<<endl<<endl;
+		cout<<"      []       SHIELD: Proteje del siguiente ataque"<<endl;
+		cout<<"               RETURN: Devuelde el 50% de daño del siguiente ataque del enemigo"<<endl<<endl;
 	}
 	void pov(int i)
 	{
@@ -482,7 +483,7 @@ void seleccion(guerrero &gue, alquimista &alq, mago &mag, vampiro &vam,string &j
 		mag.mostrar();
 		cout<<"___________________________________________________________________"<<endl<<endl;
 		vam.mostrar();
-		cout<<endl<<"OPTION (ENTER NAME): ";
+		cout<<endl<<"OPTION (ENTER NAME OF CHARACTER - Guerrero, Alquimista, Mago, Vampiro): ";
 		cin>>j;
 		system("cls");
 		if(j!="GUERRERO" && j!="guerrero" && j!="Guerrero" && j!="ALQUIMISTA" && j!="Alquimista" && j!="alquimista" && j!="MAGO" && j!="Mago" && j!="mago" && j!="VAMPIRO" && j!="Vampiro" && j!="vampiro")
