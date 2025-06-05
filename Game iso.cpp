@@ -3,7 +3,7 @@
 using namespace std;
 
 class personaje {
-protected:  // Cambio de private a protected para acceso desde clases hijas
+protected:  
     string nombre;
     int ataque;
     int salud;
@@ -11,7 +11,7 @@ protected:  // Cambio de private a protected para acceso desde clases hijas
 
 public:
     personaje(string nombre, int ataque, int salud, int defensa) {
-        this->nombre=nombre;
+        this->nombre=nombre; //(el this es un puntero y funca para aclar q se accede a un atributo de la clase)
         this->ataque=ataque;
         this->salud=salud;
         this->defensa=defensa;
