@@ -152,33 +152,44 @@ int main(){
 	char op;
 	vector<char>p(2);
 	for(int i=0;i<2;i++){
-		cout<<"elija elemento de guerrero:"<<endl;
-		cout<<"A-Tierra (+1 escudo)"<<endl;
-		cout<<"B-Fuego (+10 dano)"<<endl;
-		cout<<"C-Agua (+50 hp)"<<endl;
-		cout<<"D-Viento (+10 velocidad)"<<endl;
-		cin>>op;
-		p[i]=op;
-		cout<<"ingrese nombre:";
-		cin>>a;
-		vel=rand()%10+1;
-		if(op=='a' || op=='A'){
-			per[i]=new tierra (a,vel);
+        do{
+            cout<<"elija elemento de guerrero:"<<endl;
+		    cout<<"A-Tierra (+1 escudo)"<<endl;
+		    cout<<"B-Fuego (+10 dano)"<<endl;
+		    cout<<"C-Agua (+50 hp)"<<endl;
+		    cout<<"D-Viento (+10 velocidad)"<<endl;
+		    cin>>op;
+            system("cls");
+        }while(tolower(op)!='a' && tolower(op)!='b' && tolower(op)!='c' && tolower(op)!='d');
+        p[i]=op;
+	    cout<<"ingrese nombre:";
+	    cin>>a;
+	    vel=rand()%10+1;
+	    if(tolower(op)=='a'){
+		    per[i]=new tierra (a,vel);
+	    }
+	    if(tolower(op)=='b'){
+		    per[i]=new fuego(a,vel);
+	    }
+	    if(tolower(op)=='c'){
+		    per[i]=new agua(a,vel);
+	    }
+	    if(tolower(op)=='d'){
+		    per[i]=new viento(a,vel);
 		}
-		if(op=='b' || op=='B'){
-			per[i]=new fuego(a,vel);
-		}
-		if(op=='c' || op=='C'){
-			per[i]=new agua(a,vel);
-		}
-		if(op=='d' || op=='D'){
-			per[i]=new viento(a,vel);
-		}
-		system("cls");
+        system("cls");
 	}
 	for(int o=0;o<2;o++){
 		cout<<"Stats:"<<endl;
 		cout<<"nombre: "<<per[o]->getnom()<<endl;
+        if(tolower(p[o])=='a')
+            cout<<"elemento: Tierra"<<endl;
+        if(tolower(p[o])=='b')
+            cout<<"elemento: Fuego"<<endl;
+        if(tolower(p[o])=='c')
+            cout<<"elemento: Agua"<<endl;
+        if(tolower(p[o])=='d')
+            cout<<"elemento: Viento"<<endl;
 		cout<<"dano: "<<per[o]->getdano()<<endl;
 		cout<<"escudo: "<<per[o]->getesc()<<endl;
 		cout<<"hp: "<<per[o]->gethp()<<endl;
@@ -190,11 +201,21 @@ int main(){
 	}else{
 		duelo(per[1],per[0],p[1],p[0],op);
 	}
-	if(per[0]->gethp()<=0)
-		cout<<per[1]->getnom()<<" es el GANADOR"<<endl;
-	else   
-		cout<<per[0]->getnom()<<" es el GANADOR"<<endl;
-	
+	if(per[0]->gethp()<=0){
+        cout << "========================================="<<endl;
+        cout << "             ¡TENEMOS UN GANADOR!      "<<endl;
+        cout << "========================================="<<endl;
+        cout << "                 " <<per[1]->getnom()<<endl;
+        cout << "     ¡Ha demostrado su gran poder!"<<endl;
+        cout << "========================================="<<endl;
+    }else{   
+	    cout << "========================================="<<endl;
+        cout << "             ¡TENEMOS UN GANADOR!      "<<endl;
+        cout << "========================================="<<endl;
+        cout << "                 " <<per[0]->getnom()<<endl;
+        cout << "     ¡Ha demostrado su gran poder!"<<endl;
+        cout << "========================================="<<endl;
+    }
 	return 0;
 }
 	
