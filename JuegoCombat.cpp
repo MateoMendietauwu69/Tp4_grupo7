@@ -70,13 +70,12 @@ public:
 	}
 	void mostrar() override
 	{
-		cout<<"      /\\    "<<endl;
-		cout<<"      ||       CHARACTER: "<<getnombre()<<endl;
+		cout<<"      /\\       CHARACTER: "<<getnombre()<<endl;
 		cout<<"      ||       HEALTH POINTS: "<<getvida()<<endl;
 		cout<<"      ||       DAMAGE: "<<attack<<endl;
-		cout<<"     (==)      SPECIAL ABILITIES"<<endl;
-		cout<<"      []       SHIELD: Proteje del siguiente ataque"<<endl;
-		cout<<"               RETURN: Devuelde el 50% de daño del siguiente ataque del enemigo"<<endl<<endl;
+		cout<<"      ||       SPECIAL ABILITIES"<<endl;
+		cout<<"     (==)      SHIELD: Proteje del siguiente ataque"<<endl;
+		cout<<"      []       RETURN: Devuelde el 50% de da�o del siguiente ataque del enemigo"<<endl<<endl;
 	}
 	void pov(int i)
 	{
@@ -95,7 +94,9 @@ public:
 		cout<<"                 <>    "<<endl;
 		cout<<"  HP "<<getvida()<<"/"<<getvidamax();
 		if(escudo)
-			cout<<"   SHIELD ON";
+			cout<<"  SHIELD-ON";
+        if(rebote)
+            cout<<"  RETURN-ON";
 		cout<<endl;
 		cout<<" _______________     _______________"<<endl;
 		cout<<"| 1. ATTACK ("<<attack<<") |   |   2. SHIELD   |"<<endl;
@@ -116,10 +117,12 @@ public:
 		cout<<"                 []    "<<endl;
 		cout<<"         HP "<<getvida()<<"/"<<getvidamax()<<"  DAMAGE "<<attack;
 		if(escudo)
-			cout<<"   SHIELD ON";
+			cout<<" SHIELD-ON";
+        if(rebote)
+            cout<<" RETURN-ON";
 		cout<<endl<<endl;
 		cout<<"                VS.  "<<endl<<endl;
-		
+
 	}
 	int atacar()
 	{
@@ -155,20 +158,26 @@ class alquimista : public personaje
 private:
 	int attack;
 	int cura;
+	int nerf;
+	int contadormax;
 public:
-	alquimista(string nombre, int vida, int attack,int cura) : personaje(nombre, vida)
+    int contador;
+	alquimista(string nombre, int vida, int attack,int cura,int nerf,int contadormax) : personaje(nombre, vida)
 	{
 		this->attack=attack;
 		this->cura=cura;
+		this->nerf=nerf;
+		this->contadormax=contadormax;
+		contador=0;
 	}
 	void mostrar() override
 	{
-		cout<<"     ::::   "<<endl;
-		cout<<"      ||       CHARACTER: "<<getnombre()<<endl;
-		cout<<"     /  \\      HEALTH POINTS: "<<getvida()<<endl;
-		cout<<"    /____\\     DAMAGE: "<<attack<<endl;
-		cout<<"   |      |    SPECIAL ABILITIES"<<endl;
-		cout<<"    \\____/     HEALING: Cura "<<cura<<" puntos de vida"<<endl<<endl;
+		cout<<"     ::::      CHARACTER: "<<getnombre()<<endl;
+		cout<<"      ||       HEALTH POINTS: "<<getvida()<<endl;
+		cout<<"     /  \\      DAMAGE: "<<attack<<endl;
+		cout<<"    /____\\     SPECIAL ABILITIES"<<endl;
+		cout<<"   |      |    HEALING: Cura "<<cura<<" puntos de vida"<<endl;
+		cout<<"    \\____/     DECREMENT: Reduce el da�o del enemigo en "<<nerf<<" durante "<<contadormax<<" rondas"<<endl<<endl;
 	}
 	void pov(int i)
 	{
@@ -185,10 +194,16 @@ public:
 		cout<<"          ||   o      o ||  "<<endl;
 		cout<<"           \\\\__________//  "<<endl;
 		cout<<"             ==========     "<<endl;
-		cout<<"  HP "<<getvida()<<"/"<<getvidamax()<<endl;
+		cout<<"  HP "<<getvida()<<"/"<<getvidamax();
+		if(contador>0)
+            cout<<"         DECREMENT ("<<contador<<" rounds) ";
+        cout<<endl;
 		cout<<" _______________     _________________"<<endl;
 		cout<<"| 1. ATTACK ("<<attack<<") |   |   2. HEAL ("<<cura<<")   |"<<endl;
-		cout<<" ---------------     -----------------"<<endl<<endl;
+		cout<<" ---------------     -----------------"<<endl;
+		cout<<"            ________________"<<endl;
+		cout<<"           |  3. DECREMENT  | "<<endl;
+		cout<<"            ----------------"<<endl<<endl;
 		cout<<" SELECT OPTION: ";
 	}
 	void povenemigo(int i)
@@ -200,9 +215,12 @@ public:
 		cout<<"               /____\\    "<<endl;
 		cout<<"              |      |    "<<endl;
 		cout<<"               \\____/    "<<endl;
-		cout<<"         HP "<<getvida()<<"/"<<getvidamax()<<"  DAMAGE "<<attack<<endl<<endl;
-		cout<<"                 VS.  "<<endl<<endl;
-		
+		cout<<"         HP "<<getvida()<<"/"<<getvidamax()<<"  DAMAGE "<<attack;
+		if(contador>0)
+            cout<<"  DECREMENT ("<<contador<<" rounds) ";
+        cout<<endl<<endl;
+        cout<<"                 VS.  "<<endl<<endl;
+
 	}
 	int atacar()
 	{
@@ -224,6 +242,20 @@ public:
 	int getcura()
 	{
 		return cura;
+	}
+	int decremento()
+	{
+	    if(contador>0)
+	    {
+	        contador--;
+            return nerf;
+	    }
+	    else
+            return 0;
+	}
+	int getcontadormax()
+	{
+	    return contadormax;
 	}
 };
 
@@ -380,7 +412,10 @@ public:
 		cout<<" \\   \\ ___\\      \\______/      /___/    /  "<<endl;
 		cout<<"  \\  /              \\/              \\  /"<<endl;
 		cout<<"   \\/                                \\/ "<<endl;
-		cout<<"  HP "<<getvida()<<"/"<<getvidamax()<<endl;
+		cout<<"  HP "<<getvida()<<"/"<<getvidamax();
+		if(contador>0)
+            cout<<"      POISON ("<<contador<<" rounds)";
+        cout<<endl;
 		cout<<" _______________     _____________________"<<endl;
 		cout<<"| 1. ATTACK ("<<attack<<") |   | 2. POISON ("<<veneno<<"/ronda) |"<<endl;
 		cout<<" ---------------     ---------------------"<<endl;
@@ -397,7 +432,10 @@ public:
 		cout<<"               \\   |   |   / "<<endl;
 		cout<<"                \\/\\|   |/\\/  "<<endl;
 		cout<<"                    \\_/     "<<endl;
-		cout<<"            HP "<<getvida()<<"/"<<getvidamax()<<"  DAMAGE "<<attack<<endl<<endl;
+		cout<<"            HP "<<getvida()<<"/"<<getvidamax()<<"  DAMAGE "<<attack;
+		if(contador>0)
+            cout<<"  POISON ("<<contador<<" rounds)";
+        cout<<endl<<endl;
 		cout<<"                      VS.  "<<endl<<endl;
 	}
 	int atacar()
@@ -439,7 +477,7 @@ void turno(guerrero &gue1, alquimista &alq1, mago &mag1, vampiro &vam1,guerrero 
 int main()
 {
 	guerrero gue1("GUERRERO",25,5,false),gue2("GUERRERO",25,5,false);
-	alquimista alq1("ALQUIMISTA",20,4,4),alq2("ALQUIMISTA",20,4,4);
+	alquimista alq1("ALQUIMISTA",20,4,4,2,3),alq2("ALQUIMISTA",20,4,4,2,3);
 	mago mag1("MAGO",27,3,2,2,2),mag2("MAGO",27,3,2,2,2);
 	vampiro vam1("VAMPIRO",22,3,1,1,3),vam2("VAMPIRO",22,3,1,1,3);
 	string j1,j2;
@@ -448,6 +486,7 @@ int main()
 	seleccion(gue1,alq1,mag1,vam1,j1,1);
 	seleccion(gue2,alq2,mag2,vam2,j2,2);
 	do{
+            cout<<"          ####### ROUND "<<turn<<" #######"<<endl<<endl;
 		if(turn%2!=0)
 			turno(gue1,alq1,mag1,vam1,gue2,alq2,mag2,vam2,j1,j2,deadp1,1,2);
 		else
@@ -531,7 +570,7 @@ void turno(guerrero &gue1, alquimista &alq1, mago &mag1, vampiro &vam1,guerrero 
 							}
 						}
 						else if(j2=="ALQUIMISTA" || j2=="Alquimista" || j2=="alquimista")
-						   alq2.recibirdano(gue1.atacar());
+						    alq2.recibirdano(gue1.atacar()-alq2.decremento());
 						else if(j2=="MAGO" || j2=="Mago" || j2=="mago")
 							mag2.recibirdano(gue1.atacar());
 						else if(j2=="VAMPIRO" || j2=="Vampiro" || j2=="vampiro")
@@ -597,7 +636,7 @@ void turno(guerrero &gue1, alquimista &alq1, mago &mag1, vampiro &vam1,guerrero 
 							}
 						}
 						else if(j2=="ALQUIMISTA" || j2=="Alquimista" || j2=="alquimista")
-						   alq2.recibirdano(alq1.atacar());
+						    alq2.recibirdano(alq1.atacar()-alq2.decremento());
 						else if(j2=="MAGO" || j2=="Mago" || j2=="mago")
 							mag2.recibirdano(alq1.atacar());
 						else if(j2=="VAMPIRO" || j2=="Vampiro" || j2=="vampiro")
@@ -607,10 +646,14 @@ void turno(guerrero &gue1, alquimista &alq1, mago &mag1, vampiro &vam1,guerrero 
 					{
 						alq1.curacion();
 					}
+					else if(op==3)
+                    {
+                        alq1.contador=alq1.getcontadormax();
+                    }
 					system("cls");
-					if(op!=1 && op!=2)
+					if(op!=1 && op!=2 && op!=3)
 						cout<<op<<" NO ES UNA OPCION"<<endl<<endl;
-				}while(op!=1 && op!=2);
+				}while(op!=1 && op!=2 && op!=3);
 			}
 		}
 	}
@@ -651,7 +694,7 @@ void turno(guerrero &gue1, alquimista &alq1, mago &mag1, vampiro &vam1,guerrero 
 							}
 						}
 						else if(j2=="ALQUIMISTA" || j2=="Alquimista" || j2=="alquimista")
-						   alq2.recibirdano(mag1.atacar()+mag1.incremento());
+						    alq2.recibirdano(mag1.atacar()+mag1.incremento()-alq2.decremento());
 						else if(j2=="MAGO" || j2=="Mago" || j2=="mago")
 							mag2.recibirdano(mag1.atacar()+mag1.incremento());
 						else if(j2=="VAMPIRO" || j2=="Vampiro" || j2=="vampiro")
@@ -695,7 +738,7 @@ void turno(guerrero &gue1, alquimista &alq1, mago &mag1, vampiro &vam1,guerrero 
 					{
 						if(j2=="GUERRERO" || j2=="guerrero" || j2=="Guerrero")
 						{
-							
+
 							if(gue2.getescudo())
 							{
 								gue2.setescudo(false);
@@ -713,7 +756,7 @@ void turno(guerrero &gue1, alquimista &alq1, mago &mag1, vampiro &vam1,guerrero 
 						}
 						else if(j2=="ALQUIMISTA" || j2=="Alquimista" || j2=="alquimista")
 						{
-							alq2.recibirdano(vam1.atacar()+mag1.incremento());
+							alq2.recibirdano(vam1.atacar()+mag1.incremento()-alq2.decremento());
 							vam1.curacion();
 							alq2.recibirdano(vam1.envenenar());
 						}
